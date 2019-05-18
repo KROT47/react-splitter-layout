@@ -48,6 +48,11 @@
   cursor: row-resize;
 }
 
+.splitter-layout.splitter-layout-vertical > .layout-splitter {
+  width: 100%;
+  height: auto;
+}
+
 .splitter-layout.splitter-layout-vertical > .layout-splitter > .layout-splitter-inner {
   width: 100%;
   height: 4px;
