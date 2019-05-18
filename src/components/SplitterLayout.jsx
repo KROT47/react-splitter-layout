@@ -25,6 +25,8 @@ const DEFAULT_SPLITTER_SIZE = 4;
 class SplitterLayout extends React.Component {
   constructor(props) {
     super(props);
+    this.getCurrentSecondaryPaneSize = this.getCurrentSecondaryPaneSize.bind(this);
+    this.setCurrentSecondaryPaneSize = this.setCurrentSecondaryPaneSize.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
@@ -156,11 +158,37 @@ class SplitterLayout extends React.Component {
     }
   }
 
+  getCurrentSecondaryPaneSize( secondaryPaneSize, inPercents ) {
+    if ( inPercents === undefined ) return this.state.secondaryPaneSize;
+
+    if ( inPercents ) {
+        if ( this.props.percentage ) {
+            return this.state.secondaryPaneSize;
+        } else {
+            const containerRect = this.container.getBoundingClientRect();
+
+            return this.state.secondaryPaneSize / containerRect.width * 100;
+        }
+    } else {
+        if ( this.props.percentage ) {
+            const containerRect = this.container.getBoundingClientRect();
+
+            return containerRect.width * this.state.secondaryPaneSize / 100;
+        } else {
+            return this.state.secondaryPaneSize;
+        }
+    }
+  }
+  setCurrentSecondaryPaneSize( secondaryPaneSize ) {
+    this.setState({ secondaryPaneSize });
+  }
+
   handleTouchMove(e) {
     this.handleMouseMove(e.changedTouches[0]);
   }
 
-  handleSplitterMouseDown() {
+  handleSplitterMouseDown( event ) {
+    if ( event.button !== 0 ) return;
     clearSelection();
     this.setState({ resizing: true });
   }
