@@ -160,8 +160,8 @@ and the only direct children occupies all available space.
         - if string - assume `secondaryPaneSize` is in percents ( eg: '50%' )
     - `inPercents`:
 
-        - true - returns in percents ( float )
-        - false - returns in pixels ( int )
+        - `true` - returns in percents ( float )
+        - `false` - returns in pixels ( int )
 
 * `getCurrentSecondaryPaneSize` - returns current size in pixels or percents
     ```
@@ -173,10 +173,14 @@ and the only direct children occupies all available space.
 * `setCurrentSecondaryPaneSize` - sets current size
     ```
     setCurrentSecondaryPaneSize(
-        secondaryPaneSize: number
-    ): number
+        secondaryPaneSize: number,
+        isPercents?: boolean
+    ): void
     ```
-    - `secondaryPaneSize` - needed pane size in pixels or percents ( see: percentage )
+    - `secondaryPaneSize` - needed pane size in pixels or percents
+    - `isPercents` - defaults to `percentage`:
+        - `true` - assume `secondaryPaneSize` is in percents
+        - `false` - assume `secondaryPaneSize` is in pixels
 
 
 ## Release History

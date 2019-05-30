@@ -191,8 +191,22 @@ class SplitterLayout extends React.Component {
         }
     }
   }
-  setCurrentSecondaryPaneSize( secondaryPaneSize ) {
-    this.setState({ secondaryPaneSize });
+  setCurrentSecondaryPaneSize( secondaryPaneSize, isPercents ) {
+    isPercents = isPercents !== undefined ? isPercents : this.props.percentage;
+
+    if ( isPercents ) {
+        secondaryPaneSize = String( secondaryPaneSize );
+    } else if ( typeof secondaryPaneSize === 'string' ) {
+        secondaryPaneSize = parseFloat( secondaryPaneSize );
+    }
+
+    this.setState({
+        secondaryPaneSize:
+            this.calculateSecondaryPaneSize(
+                secondaryPaneSize,
+                this.props.percentage
+            ),
+    });
   }
 
   handleTouchMove(e) {
