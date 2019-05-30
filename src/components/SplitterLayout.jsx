@@ -160,30 +160,32 @@ class SplitterLayout extends React.Component {
   }
 
   getCurrentSecondaryPaneSize( inPercents ) {
-    return (
-        this.calculateSecondaryPaneSize(
-            this.state.secondaryPaneSize,
-            inPercents
-        )
-    );
+    if ( inPercents === undefined ) return this.state.secondaryPaneSize;
+
+    const secondaryPaneSize =
+            this.props.percentage
+                ? String( secondaryPaneSize )
+                : secondaryPaneSize
+
+    return this.calculateSecondaryPaneSize( secondaryPaneSize, inPercents );
   }
 
   calculateSecondaryPaneSize( secondaryPaneSize, inPercents ) {
-    if ( inPercents === undefined ) return secondaryPaneSize;
+    const fromPercents = typeof secondaryPaneSize === 'string';
 
     if ( inPercents ) {
-        if ( this.props.percentage ) {
-            return secondaryPaneSize;
+        if ( fromPercents ) {
+            return parseFloat( secondaryPaneSize );
         } else {
             const containerRect = this.container.getBoundingClientRect();
 
             return secondaryPaneSize / containerRect.width * 100;
         }
     } else {
-        if ( this.props.percentage ) {
+        if ( fromPercents ) {
             const containerRect = this.container.getBoundingClientRect();
 
-            return containerRect.width * secondaryPaneSize / 100;
+            return containerRect.width * parseFloat( secondaryPaneSize ) / 100;
         } else {
             return secondaryPaneSize;
         }

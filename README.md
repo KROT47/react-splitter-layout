@@ -79,7 +79,7 @@ Write two parts of the layout as direct children of your `SplitterLayout` elemen
 `SplitterLayout` does not render splitter when it has only 1 direct children,
 and the only direct children occupies all available space.
 
-The `SplitterLayout` component supports the following props.
+#### The `SplitterLayout` component supports the following props.
 
 * `customClassName: PropTypes.string`
 
@@ -143,6 +143,41 @@ The `SplitterLayout` component supports the following props.
     Event handlers will be passed with a single parameter of `number` type representing new size of secondary pane.
     When `percentage` is set to `false`, the value is in pixel size.
     When `percentage` is set to `true`, the value is in percentage.
+
+
+#### The `SplitterLayout` component's API.
+
+* `calculateSecondaryPaneSize` - returns needed size of pane
+    ```
+    calculateSecondaryPaneSize(
+        secondaryPaneSize: number | string,
+        inPercents?: boolean
+    ): number
+    ```
+    - `secondaryPaneSize` - needed pane size
+
+        - if number - assume `secondaryPaneSize` is in pixels ( eg: 1200 )
+        - if string - assume `secondaryPaneSize` is in percents ( eg: '50%' )
+    - `inPercents`:
+
+        - true - returns in percents ( float )
+        - false - returns in pixels ( int )
+
+* `getCurrentSecondaryPaneSize` - returns current size in pixels or percents
+    ```
+    getCurrentSecondaryPaneSize(
+        inPercents?: boolean
+    ): number
+    ```
+
+* `setCurrentSecondaryPaneSize` - sets current size
+    ```
+    setCurrentSecondaryPaneSize(
+        secondaryPaneSize: number
+    ): number
+    ```
+    - `secondaryPaneSize` - needed pane size in pixels or percents ( see: percentage )
+
 
 ## Release History
 
