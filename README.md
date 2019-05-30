@@ -81,6 +81,10 @@ and the only direct children occupies all available space.
 
 #### The `SplitterLayout` component supports the following props.
 
+* `splitter: React.Node`
+
+    Custom splitter element
+
 * `customClassName: PropTypes.string`
 
     Custom CSS class name applied to the layout `div`. You can use this to customize layout style.
