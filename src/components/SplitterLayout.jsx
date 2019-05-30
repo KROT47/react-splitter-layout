@@ -26,6 +26,7 @@ class SplitterLayout extends React.Component {
   constructor(props) {
     super(props);
     this.getCurrentSecondaryPaneSize = this.getCurrentSecondaryPaneSize.bind(this);
+    this.calculateSecondaryPaneSize = this.calculateSecondaryPaneSize.bind(this);
     this.setCurrentSecondaryPaneSize = this.setCurrentSecondaryPaneSize.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
@@ -158,24 +159,33 @@ class SplitterLayout extends React.Component {
     }
   }
 
-  getCurrentSecondaryPaneSize( secondaryPaneSize, inPercents ) {
-    if ( inPercents === undefined ) return this.state.secondaryPaneSize;
+  getCurrentSecondaryPaneSize( inPercents ) {
+    return (
+        this.calculateSecondaryPaneSize(
+            this.state.secondaryPaneSize,
+            inPercents
+        )
+    );
+  }
+
+  calculateSecondaryPaneSize( secondaryPaneSize, inPercents ) {
+    if ( inPercents === undefined ) return secondaryPaneSize;
 
     if ( inPercents ) {
         if ( this.props.percentage ) {
-            return this.state.secondaryPaneSize;
+            return secondaryPaneSize;
         } else {
             const containerRect = this.container.getBoundingClientRect();
 
-            return this.state.secondaryPaneSize / containerRect.width * 100;
+            return secondaryPaneSize / containerRect.width * 100;
         }
     } else {
         if ( this.props.percentage ) {
             const containerRect = this.container.getBoundingClientRect();
 
-            return containerRect.width * this.state.secondaryPaneSize / 100;
+            return containerRect.width * secondaryPaneSize / 100;
         } else {
-            return this.state.secondaryPaneSize;
+            return secondaryPaneSize;
         }
     }
   }
